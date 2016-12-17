@@ -16,6 +16,18 @@ class DB{
 		}
 		mysql_query("set names utf8");
 	}
+	public static function query($sql){
+		$sql = mysql_query($sql);
+		if(!$sql){
+			return false;
+		}
+
+		while($data = mysql_fetch_assoc($sql)){
+			$d[] = $data;
+		}
+		return $d;
+	}
+
 	/**
 	 * 获得全部数据
 	 * @param  array $config 配置数组

@@ -1,21 +1,49 @@
 <?php 
 class Article extends DB{
-	public function __construct(){
+	protected $art_id;
+
+	public function __construct($art_id = null){
 		$this->table = "wx_article";
+		if($art_id!=null){
+			$this->art_id = $art_id;
+		}
 	}
 
 	public function getAllArticle(){
-		return $this->fetchAll();
+		// return $this->fetchAll();
+		$sql = "
+			SELECT
+				wx_article.*,
+				wx_user.id,
+				wx_user.userid,
+				wx_user.nickname
+			FROM 
+				wx_article
+			LEFT JOIN 
+				wx_user 
+			ON 
+				wx_article.art_poster_id = wx_user.id
+		";
+		return DB::query($sql);
+	}
+
+	public function setArtId($art_id){
+		$this->art_id = $art_id;
+		return $this->art_id;
+	}
+
+	public function getArtId(){
+		return $this->art_id;
 	}
 	/**
 	 * 判断文章是否为显示状态
 	 * @param  int $art_id 文章ID
 	 * @return boolean         如果文章的状态为显示：true,否则：false
 	 */
-	public function artIsShow($art_id){
+	public function artIsShow(){
 		$config = array(
 				"key" => "is_show",
-				"where" => "art_id = ".$art_id
+				"where" => "art_id = ".$this->art_id
 			);
 		$isShow = $this->fetchOne($config);
 		$isShow = $isShow['is_show'];
@@ -30,22 +58,63 @@ class Article extends DB{
 	 * @param  int $art_id 浏览要自增的文章ID
 	 * @return boolean         自增成功：true;否则：false
 	 */
-	public function artViewIncrement($art_id){
+	public function artViewIncrement(){
 		$config = array(
 				"key" => "art_view",
-				"where" => "art_id = ".$art_id
+				"where" => "art_id = ".$this->art_id
 			);
 		return $this->increment($config);
 	}
-
-	public function artToggles($art_id,$toggle_key){
+	/**
+	 * 文章各种开关
+	 * @param  int $art_id     要开关的文章ID
+	 * @param  string $toggle_key 要开关的字段名
+	 * @return boolean             成功：true;失败：false
+	 */
+	public function artToggles($toggle_key){
 		$config = array(
 				"key" => $toggle_key,
-				"where" => "art_id = ".$art_id,
+				"where" => "art_id = ".$this->art_id,
 				"true" => 1,
 				"false" =>0
 			);
 		return $this->toggle($config);
+	}
+
+	public function getAllcomments(){
+		$sql = "
+			SELECT
+				wx_art_comment.*,
+				wx_user.id,
+				wx_user.userid,
+				wx_user.nickname,
+				count(wx_art_comment.com_id) as com_total
+			FROM 
+				wx_art_comment
+			LEFT JOIN 
+				wx_user
+			ON 
+				wx_art_comment.com_poster_id = wx_user.id
+			WHERE 
+				wx_art_comment.com_art_id = ".$this->art_id
+		;
+		return DB::query($sql);
+	}
+
+	public function setPayment($gold){
+		$this->update(array(
+				"data" => array(
+						"art_pay_for_view" => $gold
+					),
+				"where" => "art_id = ".$this->art_id
+			));
+	}
+	public function getPayment(){
+		$pay = $this->fetchOne(array(
+				"key" => "art_pay_for_view",
+				"where" => "art_id = ".$this->art_id
+			));
+		return $pay['art_pay_for_view']*1;
 	}
 }
  ?>
