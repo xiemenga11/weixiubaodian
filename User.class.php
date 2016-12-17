@@ -12,6 +12,7 @@ class User extends DB{
 				));
 		}
 	}
+
 	public function setId($id){
 		$this->id = $id;
 		return $this->id;

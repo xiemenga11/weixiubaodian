@@ -9,6 +9,46 @@ class Article extends DB{
 		}
 	}
 
+	public function checkData(&$data){
+		$notnull = array(
+				"art_title",
+				"art_content",
+				"art_cate",
+				"art_poster_id"
+			);
+		$checkpass = true;
+		for($i = 0 ; $i < count($notnull) ; $i++){
+			if(!isset($data[$notnull[$i]])){
+				$checkpass = false;
+			}
+		}
+		foreach ($data as $key => $value) {
+
+			$data[$key] = str::clean($value);
+			if($data[$key] == false){
+				$checkpass = false;
+			}
+			if(in_array($key, $notnull) && str::isEmpty($value)){
+				$checkpass = false;
+			}
+		}
+		return $checkpass;
+	}
+
+	public function addArticle($data){
+		$pass = $this->checkData($data);
+		$info['insertId'] = $this->insert($data);
+		if($pass && $info['insertId']){
+			$info['status'] = "success";
+			$info['error'] = false;
+		}else{
+			$info['insertId'] = false;
+			$info['status'] = "failed";
+			$info['error'] = 'check data not pass';
+		}
+		return $info;
+	}
+
 	public function getAllArticle(){
 		// return $this->fetchAll();
 		$sql = "

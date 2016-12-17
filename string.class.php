@@ -39,7 +39,8 @@ class str{
         //自动过滤Sql的注入语句。
         $check=preg_match('/select|insert|update|delete|\.\.\/|\.\/|union|into|load_file|outfile/i',$Sql_Str);
         if ($check) {
-            echo '<script language="JavaScript">alert("系统警告：\n\n请不要尝试在内容中包含非法字符尝试注入！");window.location="index.php"</script>';
+            return false;
+            // echo '<script language="JavaScript">alert("系统警告：\n\n请不要尝试在内容中包含非法字符尝试注入！");window.location="index.php"</script>';
             exit();
         }else{
             return $Sql_Str;
