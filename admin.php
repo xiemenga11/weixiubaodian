@@ -25,7 +25,7 @@ require_once 'index.php';
 	 		<select class="mar-bottom" name="art_cate">
 	 			<option value="1">冰箱</option>
 	 		</select>
-	 		<textarea class="ckeditor mar-bottom" name="art_conent" placeholder="文章内容"></textarea>
+	 		<textarea class="ckeditor mar-bottom" name="art_content" placeholder="文章内容"></textarea>
 	 		<input type="submit" value="发表文章">
 	 	
  		</div>

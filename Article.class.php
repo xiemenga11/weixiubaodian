@@ -44,7 +44,7 @@ class Article extends DB{
 		}else{
 			$info['insertId'] = false;
 			$info['status'] = "failed";
-			$info['error'] = 'check data not pass';
+			$info['error'] = 'check data not pass'.mysql_error();
 		}
 		return $info;
 	}
