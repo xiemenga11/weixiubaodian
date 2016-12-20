@@ -11,6 +11,7 @@ require_once 'ads.class.php';
 require_once 'Article.class.php';
 require_once 'string.class.php';
 require_once 'User.class.php';
+require_once 'Cate.class.php';
 DB::connect();
 
  ?>
