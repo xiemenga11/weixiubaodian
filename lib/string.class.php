@@ -30,9 +30,10 @@ class str{
         $str=self::inject_check($str);
         return $str;
     }
-    public static function cleanAll(&$data,$allowHtml = true){
+    public static function cleanAll(&$data,$allowHtml=true){
+        $allow = $allowHtml;
         foreach($data as $k => $v){
-            $data[$k] = self::clean($v,$allowHtml);
+            $data[$k] = self::clean($v,$allow);
         }
     }
     /**
@@ -44,7 +45,8 @@ class str{
         //自动过滤Sql的注入语句。
         $check=preg_match('/select|insert|update|delete|\.\.\/|\.\/|union|into|load_file|outfile/i',$Sql_Str);
         if ($check) {
-            return false;
+            return false;       
+            // return $Sql_str = preg_replace('/select|insert|update|delete|\.\.\/|\.\/|union|into|load_file|outfile/i','',$Sql_Str);
             // echo '<script language="JavaScript">alert("系统警告：\n\n请不要尝试在内容中包含非法字符尝试注入！");window.location="index.php"</script>';
             exit();
         }else{

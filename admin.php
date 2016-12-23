@@ -19,7 +19,7 @@ require_once 'include.php';
  	</style>
  </head>
  <body>
-	<form action="index.php?c=add&m=addArticle" method="post">
+	<form action="index.php?c=Add&m=addArticle" method="post">
  		<div id="addArticleBox" class="container col-span-8">
  			<div class="mar-tb">添加文章</div>
  			<hr>
@@ -34,7 +34,7 @@ require_once 'include.php';
  		</div>
  	</form>
 
- 	<form action="index.php?c=add&m=addCate" method="post">
+ 	<form action="index.php?c=Add&m=addCate" method="post">
  		<div class="container col-span-8">
  			<div class="mar-tb">添加分类</div>
  			<hr>
@@ -45,6 +45,21 @@ require_once 'include.php';
  			</select>
  			<input class="mar-bottom"  type="file" name="cate_icon">
  			<input class="mar-bottom"  type="submit" value="添加分类">
+ 		</div>
+ 	</form>
+
+ 	<form action="index.php?c=Add&m=addUser" method="post">
+ 		<div class="container col-span-8">
+ 			<div class="mar-tb">添加用户</div><hr>
+	 		<input type="text" name="userid" placeholder="请输入用户名">
+	 		<input type="password" name="password" placeholder="请输入密码">
+	 		<input type="password" name="repassword" placeholder="请再次输入密码">
+	 		<input type="text" name="nickname" placeholder="请输入昵称">
+	 		<input type="text" name="description" placeholder="请输入自我简介">
+	 		<input type="text" name="phone" placeholder="请输入电话">
+	 		<input type="text" name="address" placeholder="请输入地址">
+	 		<input type="text" name="mail" placeholder="请输入邮箱">
+	 		<input type="submit" value="提交">
  		</div>
  	</form>
  <script src="js/selector.js"></script>

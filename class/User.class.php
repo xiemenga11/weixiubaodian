@@ -13,7 +13,8 @@ class User extends DB{
 		}
 	}
 	public function addUser($data){
-		$res['status'] = false;
+		str::cleanAll($data);
+		$res['status'] = "failed";
 		$res['insertId'] = -1;
 		if(str::isEmpty($data['userid'])){
 			$res['err'] = "用户名不能为空";
@@ -26,11 +27,23 @@ class User extends DB{
 		}else if(str::isEmpty($data['phone'])){
 			$res['err'] = "电话不能为空";
 		}else{
-			$res['status'] = true;
+			$res['status'] = "success";
 			unset($data['repassword']);
+			$res['err'] = false;
+			$data['password'] = md5($data['password']);
 		}
 		if($res['status'] == true){
 			$res['insertId'] = $this->insert($data);
+			if(!$res['insertId'] || $res['insertId'] == -1){
+				$res['insertId'] = -1;
+				$res['status'] = "failed";
+				$res['err'] = "添加用户失败";
+				switch(mysql_errno()){
+					case 1062:
+						$res['err'].=",用户名或昵称已存在";
+						break;
+				}
+			}
 		}
 		return $res;
 	}
@@ -57,6 +70,24 @@ class User extends DB{
 		}else{
 			return true;
 		}
+	}
+	public function login($data){
+		$user = $this->fetchOne(array(
+				"where" => "userid = ".$data['userid']
+			));
+		if($user && $user['password'] == md5($data['password'])){
+			unset($user['password']);
+			$_SESSION = $user;
+			$res['status'] = "success";
+			$res['error'] = false;
+		}else{
+			$res['status'] = "failed";
+			$res['error'] = "账号或密码错误";
+		}
+		return $res;
+	}
+	public static function logout(){
+		session_destroy();
 	}
 	public function pay($gold){
 		if($this->getGold()<$gold){
