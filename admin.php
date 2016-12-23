@@ -1,5 +1,5 @@
 <?php 
-require_once 'index.php';
+require_once 'include.php';
  ?>
  <!doctype html>
  <html>
@@ -8,6 +8,9 @@ require_once 'index.php';
  	<title>后台管理</title>
  	<link rel="stylesheet" href="css/leo.css">
  	<style>
+ 		body{
+ 			padding:20px;
+ 		}
 		.mar-tb{
 			font-size:20px;
 			font-weight: bold;
@@ -16,7 +19,7 @@ require_once 'index.php';
  	</style>
  </head>
  <body>
-	<form action="addArticle.php" method="post">
+	<form action="index.php?c=add&m=addArticle" method="post">
  		<div id="addArticleBox" class="container col-span-8">
  			<div class="mar-tb">添加文章</div>
  			<hr>
@@ -31,17 +34,17 @@ require_once 'index.php';
  		</div>
  	</form>
 
- 	<form action="addCate.php" method="post">
+ 	<form action="index.php?c=add&m=addCate" method="post">
  		<div class="container col-span-8">
  			<div class="mar-tb">添加分类</div>
  			<hr>
- 			<input type="text" name="cate_name" placeholder="分类名称">
- 			<select name="cate_parent_id" id="">
+ 			<input class="mar-bottom"  type="text" name="cate_name" placeholder="分类名称">
+ 			<select  class="mar-bottom" name="cate_parent_id" id="">
  				<option value="">无</option>
  				<option value="1">冰箱</option>
  			</select>
- 			<input type="file" name="cate_icon">
- 			<input type="submit" value="添加分类">
+ 			<input class="mar-bottom"  type="file" name="cate_icon">
+ 			<input class="mar-bottom"  type="submit" value="添加分类">
  		</div>
  	</form>
  <script src="js/selector.js"></script>

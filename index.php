@@ -1,17 +1,10 @@
 <?php 
-session_start();
-header("Content-type:text/html; charset=utf-8");
-date_default_timezone_set("PRC");
-define("DB_HOST","localhost");
-define("DB_USER","root");
-define("DB_PASS","");
-define("DB_DB","weixiubaodian");
-require_once 'DB.class.php';
-require_once 'ads.class.php';
-require_once 'Article.class.php';
-require_once 'string.class.php';
-require_once 'User.class.php';
-require_once 'Cate.class.php';
-DB::connect();
+$c = isset($_GET['c'])?$_GET['c']:"Homepage";
+$m = isset($_GET['m'])?$_GET['m']:"home";
 
+require_once 'include.php';
+require_once 'controller/'.$c.'Controller.class.php';
+
+$con = new $c();
+$con->$m();
  ?>
