@@ -7,6 +7,7 @@ require_once 'class/ads.class.php';
 require_once 'class/Article.class.php';
 require_once 'class/User.class.php';
 require_once 'class/Cate.class.php';
+require_once 'class/Comment.class.php';
 //lib
 require_once 'lib/string.class.php';
 require_once 'lib/common.func.php';

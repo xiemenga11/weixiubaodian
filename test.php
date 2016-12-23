@@ -1,21 +1,7 @@
 <?php 
 require_once 'include.php';
-
-// $data['ads'] = array(
-// 		"title"=>"leo"
-// 	);
-// $art = new Article();
-// $data['article'] = $art->getAllArticle();
-// echo encode_json($data);
-$str = array('<selecleoxie""aldkfla""adlkf>');
-function haha(&$str){
-	str::cleanAll($str);
-}
-function v($data){
-	haha($data);
-	var_dump($data);
-}
-v($str);
+$com = new Comment();
+var_dump($com->getArtComment(1));
  ?>
  <!doctype html>
  <html lang="en">
