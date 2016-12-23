@@ -31,9 +31,9 @@ class str{
         return $str;
     }
     public static function cleanAll(&$data,$allowHtml=true){
-        $allow = $allowHtml;
+        // $allow = $allowHtml;
         foreach($data as $k => $v){
-            $data[$k] = self::clean($v,$allow);
+            $data[$k] = self::clean($v,$allowHtml);
         }
     }
     /**

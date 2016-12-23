@@ -20,7 +20,7 @@ class Article extends DB{
 		$checkpass['error'] = false;
 		//净化数据，防止入侵
 		// foreach($data as $k => $v){
-		// 	$data[$k] = str::clean($v);
+		// 	$data[$k] = str::clean($v,false);
 		// }
 		str::cleanAll($data);
 
@@ -35,7 +35,7 @@ class Article extends DB{
 
 	public function addArticle($data){
 		$pass = @$this->checkData($data);
-
+		$this->checkData($data);
 		if($pass['status']){
 			$info['insertId'] = $this->insert($data);
 			$info['status'] = "success";
